@@ -1,0 +1,15 @@
+[package]
+name = "rust-cube"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# flate2 memakai backend miniz_oxide (pure Rust), jadi aman di-cross-compile ke Android tanpa C.
+flate2 = "1"
+# Dependensi grafis (wgpu, winit, dll.) ditambahkan saat Tahap 0 render kubus.
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
