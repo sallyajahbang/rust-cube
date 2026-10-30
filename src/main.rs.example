@@ -1,5 +1,0 @@
-// Isi src/main.rs proyekmu (tambahkan main() sesuai kode yang sudah ada):
-mod nbt;
-mod world;
-
-fn main() {}

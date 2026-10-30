@@ -1,15 +1,26 @@
 [package]
-name = "rust-cube"
+name = "sallymc"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-# flate2 memakai backend miniz_oxide (pure Rust), jadi aman di-cross-compile ke Android tanpa C.
-flate2 = "1"
-# Dependensi grafis (wgpu, winit, dll.) ditambahkan saat Tahap 0 render kubus.
+[lib]
+name = "sallymc"
+crate-type = ["cdylib"]
 
-[profile.release]
-opt-level = 3
-lto = "thin"
-codegen-units = 1
-panic = "abort"
+[dependencies]
+android-activity = { version = "0.6", features = ["native-activity"] }
+android_logger = "0.14"
+log = "0.4"
+ash = "0.38"
+
+[package.metadata.android]
+package_name = "com.sally.mc"
+apk_name = "sallymc"
+build_targets = ["aarch64-linux-android"]
+
+[package.metadata.android.sdk]
+min_sdk_version = 29
+target_sdk_version = 29
+
+[package.metadata.android.application]
+label = "SallyMC"

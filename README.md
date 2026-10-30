@@ -1,28 +1,21 @@
-# Rust Cube
+# SallyMC (Rust, Android)
 
-Klien Minecraft Java (single player) yang ditulis ulang di Rust, target Android arm64.
-Target versi: **Minecraft 26.3**.
+Rebuild of Minecraft Java Edition 26.3 in Rust for Android 10 (API 29), Vulkan renderer.
+Test device: OPPO K3, Snapdragon 710, Adreno 616 (Vulkan 1.1).
 
-## Setup data game
+## Layout
+- `src/lib.rs`: android_main entry point and window lifecycle
+- `src/render/`: Vulkan backend (stub for now)
+- `scripts/extract_assets.sh`: pulls assets from the official client.jar
+- `.github/workflows/build-android.yml`: builds the arm64 APK on GitHub Actions
 
-Data Minecraft tidak ikut di repo (file milik Mojang). Jalankan sekali:
+## Build
+Push to GitHub; download the `sallymc-arm64-debug-test` artifact and install the APK on the device.
 
-```bash
-./scripts/setup-assets.sh        # atau: ./scripts/setup-assets.sh 26.3
-```
-
-Butuh: `curl`, `jq`, `unzip`, `sha1sum`, `python3`, dan Java 25 (untuk data generator 26.x).
-
-Script ini membuat:
-- `assets/minecraft/` dari client jar (texture, model, blockstate)
-- `generated/` dari data generator server (blok, item, recipe, dan lainnya)
-- `src/world/blocks_generated.rs` dari `generated/reports/blocks.json`
-
-## Test dan build
-
-```bash
-cargo test
-cargo build --release
-```
-
-CI di `.github/workflows/ci.yml` menjalankan test di Linux dan build Android arm64 dengan `cargo-ndk`.
+## Phases
+0. Window lifecycle + CI build (this commit)
+1. Vulkan init: instance, surface, swapchain, clear color
+2. Asset loading (blocks, textures, atlas)
+3. Chunk meshing and rendering
+4. World load/save (Anvil format), server protocol (26.3)
+5. Entities, input, UI
