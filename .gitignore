@@ -1,0 +1,7 @@
+# Build output
+/target
+
+# Data Minecraft hasil download/generate (jangan di-commit: file milik Mojang)
+/assets
+/generated
+/downloads
